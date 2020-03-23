@@ -27,7 +27,7 @@
 
 下面演示加入全球公共网络节点
 
-    docker exec zerotier-one /zerotier-cli join 8056c2e21c000001
+    docker exec zerotier-one zerotier-cli join 8056c2e21c000001
 
 
 也可以创建一个空白文件，文件名为网络节点名称
