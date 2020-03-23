@@ -10,7 +10,7 @@
 
 下面是快速运行命令
 
-    docker run --name zerotier-one \
+    docker run --name zerotier-one -itd \
       --device=/dev/net/tun \
       --net=host \
       --cap-add=NET_ADMIN \
