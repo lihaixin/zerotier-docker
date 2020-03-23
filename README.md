@@ -11,9 +11,9 @@
 下面是快速运行命令
 
     docker run --name zerotier-one \
-      --device=/dev/net/tun 
+      --device=/dev/net/tun \
       --net=host \
-      --cap-add=NET_ADMIN 
+      --cap-add=NET_ADMIN \
       --cap-add=SYS_ADMIN \
       -v /var/lib/zerotier-one:/var/lib/zerotier-one \
       lihaixin/zerotier
