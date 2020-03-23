@@ -16,6 +16,7 @@
       --cap-add=NET_ADMIN \
       --cap-add=SYS_ADMIN \
       -v /var/lib/zerotier-one:/var/lib/zerotier-one \
+      --restart=always \
       lihaixin/zerotier
 
 
