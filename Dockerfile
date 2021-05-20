@@ -8,7 +8,7 @@ RUN apk add --update alpine-sdk linux-headers \
   && make -f make-linux.mk
 
 FROM alpine:3.11
-LABEL version="1.4.6"
+LABEL version="1.6.5"
 LABEL description="ZeroTier One Docker-only Linux hosts"
 
 RUN apk add --update libgcc libc6-compat libstdc++
