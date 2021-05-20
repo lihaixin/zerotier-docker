@@ -1,23 +1,28 @@
-FROM alpine:3.11 as builder
+## NOTE: to retain configuration; mount a Docker volume, or use a bind-mount, on /var/lib/zerotier-one
 
-ARG ZT_VERSION=1.6.5
+FROM debian:buster-slim as builder
 
-RUN apk add --update alpine-sdk linux-headers \
-  && git clone --depth 1 --branch ${ZT_VERSION} https://github.com/zerotier/ZeroTierOne.git /src \
-  && cd /src \
-  && make -f make-linux.mk
+## Supports x86_64, x86, arm, and arm64
 
-FROM alpine:3.11
+RUN apt-get update && apt-get install -y curl gnupg
+RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61  && \
+    echo "deb http://download.zerotier.com/debian/buster buster main" > /etc/apt/sources.list.d/zerotier.list
+RUN apt-get update && apt-get install -y zerotier-one=1.6.5
+COPY main.sh /var/lib/zerotier-one/main.sh
+
+FROM debian:buster-slim
 LABEL version="1.6.5"
-LABEL description="ZeroTier One Docker-only Linux hosts"
+LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-only Linux hosts."
 
-RUN apk add --update libgcc libc6-compat libstdc++
-
+# ZeroTier relies on UDP port 9993
 EXPOSE 9993/udp
 
-COPY --from=builder /src/zerotier-one /usr/sbin/
-RUN mkdir -p /var/lib/zerotier-one \
-  && ln -s /usr/sbin/zerotier-one /usr/sbin/zerotier-idtool \
-  && ln -s /usr/sbin/zerotier-one /usr/sbin/zerotier-cli
+RUN mkdir -p /var/lib/zerotier-one
+COPY --from=builder /usr/sbin/zerotier-cli /usr/sbin/zerotier-cli
+COPY --from=builder /usr/sbin/zerotier-idtool /usr/sbin/zerotier-idtool
+COPY --from=builder /usr/sbin/zerotier-one /usr/sbin/zerotier-one
+COPY --from=builder /var/lib/zerotier-one/main.sh /main.sh
 
-ENTRYPOINT ["zerotier-one"]
+RUN chmod 0755 /main.sh
+ENTRYPOINT ["/main.sh"]
+CMD ["zerotier-one"]
