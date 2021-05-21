@@ -19,9 +19,10 @@ get_ip() {
 	[[ -z $ip ]] && ip=$(curl -s myip.ipip.net | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
 	[[ -z $ip ]] && echo -e "\n$red 这垃圾小鸡扔了吧！$none\n" && exit
 }
-
+zerotier-one &
+sleep 5
 get_ip
-
+sleep 2
 zerotier-cli join $ID
 sleep 3
 create_moon () {
@@ -47,4 +48,5 @@ if [ ! -d "/var/lib/zerotier-one/moons.d" ]; then
   create_moon
 fi
 
-zerotier-one
+while true; do sleep 1; done;
+
