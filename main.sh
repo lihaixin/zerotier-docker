@@ -34,7 +34,7 @@ create_moon () {
     zerotier-idtool genmoon moon.json
     # 将 moon 节点加入网络
     mkdir /var/lib/zerotier-one/moons.d
-    mv 000000*.moon ./moons.d/
+    mv *.moon ./moons.d/
 }
 
 # 没有moon，创建一个
