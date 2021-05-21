@@ -17,7 +17,7 @@ LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-
 # ZeroTier relies on UDP port 9993
 EXPOSE 9993/udp
 
-RUN mkdir -p /var/lib/zerotier-one
+RUN apt-get update && apt-get install -y curl nano net-tools && mkdir -p /var/lib/zerotier-one
 COPY --from=builder /usr/sbin/zerotier-cli /usr/sbin/zerotier-cli
 COPY --from=builder /usr/sbin/zerotier-idtool /usr/sbin/zerotier-idtool
 COPY --from=builder /usr/sbin/zerotier-one /usr/sbin/zerotier-one
