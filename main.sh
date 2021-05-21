@@ -26,6 +26,7 @@ create_moon () {
     # 进入对应目录
     cd /var/lib/zerotier-one
     # 生成moon模板
+    zerotier-idtool generate identity.public
     zerotier-idtool initmoon identity.public >>moon.json
     # 获取本机公网IP,修改moon.json
     get_ip
