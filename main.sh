@@ -20,10 +20,10 @@ get_ip() {
 	[[ -z $ip ]] && echo -e "\n$red 这垃圾小鸡扔了吧！$none\n" && exit
 }
 
-zerotier-one &
-sleep 3
-zerotier-cli join $ID
 
+
+zerotier-cli join $ID
+sleep 3
 create_moon () {
     # 进入对应目录
     cd /var/lib/zerotier-one
@@ -46,4 +46,4 @@ if [ ! -d "/var/lib/zerotier-one/moons.d" ]; then
   create_moon
 fi
 
-
+zerotier-one
