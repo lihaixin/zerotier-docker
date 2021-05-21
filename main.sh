@@ -8,3 +8,4 @@ if [ ! -e /dev/net/tun ]; then
 fi
 
 exec "$@"
+
