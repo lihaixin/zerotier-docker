@@ -1,6 +1,6 @@
 #!/bin/sh
-
-export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
 
 if [ ! -e /dev/net/tun ]; then
 	echo 'FATAL: cannot start ZeroTier One in container: /dev/net/tun not present.'
@@ -8,7 +8,6 @@ if [ ! -e /dev/net/tun ]; then
 fi
 
 get_ip() {
-	ip=$DOMAIN
 	[[ -z $ip ]] && ip=$(curl -s https://ipinfo.io/ip)
 	[[ -z $ip ]] && ip=$(curl -s https://api.ip.sb/ip)
 	[[ -z $ip ]] && ip=$(curl -s https://api.ipify.org)
@@ -17,7 +16,7 @@ get_ip() {
 	[[ -z $ip ]] && ip=$(curl -s https://api.myip.com | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
 	[[ -z $ip ]] && ip=$(curl -s icanhazip.com)
 	[[ -z $ip ]] && ip=$(curl -s myip.ipip.net | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
-	[[ -z $ip ]] && echo -e "\n$red 这垃圾小鸡扔了吧！$none\n" && exit
+	[[ -z $ip ]] && echo -e "\n$red 这垃圾小鸡扔了吧！$none\n" && exit 1
 }
 zerotier-one &
 sleep 5
