@@ -41,9 +41,7 @@ fi
 
 # 重启进程
 kill -9 `pidof zerotier-one`
-sleep 2
-kill -9 `pidof zerotier-one`
-sleep 10
+sleep 5
 zerotier-one &
 while true; do sleep 1; done;
 
