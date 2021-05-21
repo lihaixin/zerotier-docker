@@ -29,7 +29,7 @@ create_moon () {
     zerotier-idtool initmoon identity.public >>moon.json
     # 获取本机公网IP,修改moon.json
     get_ip
-    sed -i s'/\[\]/\["$ip/9993"\]/g' moon.json
+    sed -i s'/\[\]/\["'${ip}'\/9993"\]/g' moon.json
     # 生成签名文件
     zerotier-idtool genmoon moon.json
     # 将 moon 节点加入网络
