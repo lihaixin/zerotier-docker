@@ -26,4 +26,3 @@ COPY --from=builder /var/lib/zerotier-one/main.sh /main.sh
 
 RUN chmod 0755 /main.sh
 ENTRYPOINT ["/main.sh"]
-CMD ["zerotier-one"]
