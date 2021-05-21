@@ -42,4 +42,4 @@ if [ ! -d "/var/lib/zerotier-one/moons.d" ]; then
   create_moon
 fi
 
-zerotier-one -p0
+zerotier-one
