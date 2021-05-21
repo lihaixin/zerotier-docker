@@ -12,6 +12,7 @@ COPY main.sh /var/lib/zerotier-one/main.sh
 
 FROM debian:buster-slim
 LABEL version="1.6.5"
+ENV ID=8056c2e21c000001
 LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-only Linux hosts."
 
 # ZeroTier relies on UDP port 9993
