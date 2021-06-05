@@ -4,20 +4,21 @@
 
 #### 描述
 
-这个容器镜像是基于Linux Alpine 制作的，用于在docker平台快速创建zerotier服务，加入特定的网络里
+这个容器镜像是基于debian制作的，用于在docker平台快速创建zerotier服务，加入特定的网络里
 
 #### 运行
 
 下面是快速运行命令
 
-    docker run -d --name zerotier-one \
+    docker run -d --name zerotier-9993 \
       --device=/dev/net/tun \
       --net=host \
+      -e ID=8056c2e21c000001 \
       --cap-add=NET_ADMIN \
       --cap-add=SYS_ADMIN \
       -v /var/lib/zerotier-one:/var/lib/zerotier-one \
       --restart=always \
-      lihaixin/zerotier
+      lihaixin/zerotier:debian
 
 
 
@@ -25,7 +26,7 @@
 
 
 
-下面演示加入全球公共网络节点
+默认已加入全球公共网络节点
 
     docker exec zerotier-one zerotier-cli join 8056c2e21c000001
 
